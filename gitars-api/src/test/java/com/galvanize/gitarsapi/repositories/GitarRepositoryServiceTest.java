@@ -8,14 +8,17 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class GitarRepositoryTest {
+@Transactional
+public class GitarRepositoryServiceTest {
 
     @Autowired
     private GitarRepository gitarRipository;
@@ -46,5 +49,32 @@ public class GitarRepositoryTest {
         assertEquals(gitarList.size(),gitars.size());
         assertEquals(10,gitars.size());
         assertNotNull(gitars);
+        for (Gitar g: gitars){
+            assertNotNull(g);
+        }
     }
+
+    @Test
+    public void addGetDeleteOneGitar() {
+        //*******Create
+        Gitar gitar = new Gitar();
+        gitar.setBrand("testbrand");
+        gitar.setStrings(27);
+        gitar.setModel("modeltest");
+
+        gitar = gitarService.createOneGitar(gitar);
+        assertNotNull(gitar);
+        //*************getOne
+        Gitar gitar1 = gitarService.getOneGitar(gitar.getId());
+        assertEquals(gitar, gitar1);
+        assertNotNull(gitar1);
+        //************deleteOne
+        gitarService.deleteOneGitar(gitar.getId());
+        Optional<Gitar> myGitar = gitarRipository.findById(gitar.getId());
+        assertFalse(myGitar.isPresent());
+    }
+
+
+
+
 }

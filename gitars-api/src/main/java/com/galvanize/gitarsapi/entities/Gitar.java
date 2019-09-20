@@ -71,4 +71,14 @@ public class Gitar {
     public int hashCode() {
         return Objects.hash(id, model, brand, strings);
     }
+
+    @Override
+    public String toString() {
+        return "Gitar{" +
+                "id=" + id +
+                ", model='" + model + '\'' +
+                ", brand='" + brand + '\'' +
+                ", strings=" + strings +
+                '}';
+    }
 }
