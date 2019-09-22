@@ -30,11 +30,11 @@ public class GitarController {
         return gitarService.getAllGitars();
     }
 
-//    @GetMapping(value="/{id}")
-//    public String getGitarById(@PathVariable String id){
-//
-//        return "null";
-//    }
+    @GetMapping(value="/{id}")
+    public String getGitarById(@PathVariable String id){
+
+        return "null";
+    }
 
     @PutMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
